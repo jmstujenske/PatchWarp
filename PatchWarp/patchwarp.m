@@ -131,9 +131,11 @@ if (ops.rigid_template_fftdenoise == true)
 end
 
 %% Start parallel pool
-delete(gcp('nocreate'));
+pool=gcp('nocreate');
+if isempty(pool)
+% delete(gcp('nocreate'));
 parpool(ops.worker_num);
-
+end
 %% Run rigid correction
 save_path_prewarp = fullfile(ops.save_path, 'pre_warp');
 save_path_postwarp = fullfile(ops.save_path, 'post_warp');
@@ -144,6 +146,7 @@ else
     disp('Skipping rigid motion correction...')
 end
 
+
 %% Run warp correction
 if ops.run_affine_wc == 1
     disp('Performing warp correction...')
@@ -153,7 +156,7 @@ else
 end
 
 %% Shutdown parallel pool
-delete(gcp('nocreate'))
+% delete(gcp('nocreate'))
         
     
     

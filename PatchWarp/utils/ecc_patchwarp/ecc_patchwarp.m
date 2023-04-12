@@ -109,7 +109,8 @@ image = double(image);
 
 % Smoothing of original images
 % f = fspecial('gaussian',[7 7],.5);
-f = get7x7Gaussfilt();
+% f = get7x7Gaussfilt();
+f = fspecial('gaussian',21,3);
 TEMP{1} = conv2(template,f,'same');
 IM{1} = conv2(image,f,'same');
 TEMP{1} = template;

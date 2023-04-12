@@ -120,6 +120,7 @@ function patchwarp_rigid(source_path, save_path, n_ch, align_ch, save_ch, rigid_
                 target = make_template_from_file_multiple(fn_list_corrected, block_range_list(block_id, 1):block_range_list(block_id, 1) + rigid_template_tiffstack_num - 1, align_ch, n_ch, rigid_template_threshold, rigid_template_fftdenoise, false, network_temp_copy);
             end
             target = parse_image_input(target, align_ch);
+            
             write_tiff(target_fn{3}, int16(target));
 
             for i = 1:(rigid_template_block_num - 1)/2

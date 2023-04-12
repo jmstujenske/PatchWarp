@@ -90,7 +90,6 @@ stack_downsampled_perstack = stack_downsampled_perstack(nonzero_row, nonzero_col
 ny = size(stack_downsampled_perstack,1);
 nx = size(stack_downsampled_perstack,2);
 nz = size(stack_downsampled_perstack,3);
-
 % warp_overlap_pix = round((overlap_pix-1)/2);
 warp_overlap_pix = ceil(warp_overlap_pix_frac * (nx/warp_blocksize));
 
@@ -127,7 +126,7 @@ if mod(n_split4warpinit, 2) == 1
     disp(['n_split4warpinit was changed to ', num2str(n_split4warpinit)])
 end
 
-if (n_split4warpinit > nz) || ((n_split4warpinit-1)*ceil(nz/n_split4warpinit)+1 >= nz)
+if (n_split4warpinit > nz) || ((n_split4warpinit-1)*ceil(nz/n_split4warpinit)+1 > nz)
     disp('n_split4warpinit is too large')
     if (n_split4warpinit > nz)
         if mod(nz, 2) == 0
@@ -147,6 +146,7 @@ if (n_split4warpinit > nz) || ((n_split4warpinit-1)*ceil(nz/n_split4warpinit)+1 
         n_split4warpinit = 2;
     end
     disp(['n_split4warpinit was changed to ', num2str(n_split4warpinit)])
+    nz = n_split4warpinit;
 end
 
 if warp_template_tiffstack_num > nz
@@ -287,7 +287,6 @@ for nth_warp = [n_split4warpinit/2:-1:1,n_split4warpinit/2+1:n_split4warpinit]
         end
     end
 end
-
 % Clean warp_cell with temporal median filtering. This is not necessry in most cases.
 half_medfilt_length = round(affinematrix_medfilt_tiffstack_num / 2);
 for i3 = 1:nz
@@ -372,7 +371,6 @@ fns_tiff = dir(fullfile(source_path, '*.tif'));
 if length(fns_summary) ~= length(fns_tiff)
    error('tiff number does not match summary file number');
 end
-
 if (length(fns_tiff) ~= nz) && (downsampled_nframes_used == 0)
    error('warp number does not match file number');
 end

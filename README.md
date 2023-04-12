@@ -1,3 +1,6 @@
+#Fork of main
+Swapped out tiff read and write support with https://github.com/jmstujenske/Matlab_FastTiffReadWrite . The scripts were benchmarked as faster and able to read and write BigTiff files.
+
 ![logo](https://user-images.githubusercontent.com/25396523/130375407-d5a7646c-3b4e-42cb-baa5-268f02f68595.png)
 
 
